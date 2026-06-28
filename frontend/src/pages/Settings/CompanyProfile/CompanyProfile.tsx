@@ -119,7 +119,9 @@ function validateWebsite(website: string): string | null {
   if (!website) return null;
   try {
     const parsed = new URL(website.includes('://') ? website : `https://${website}`);
-    return parsed.protocol === 'http:' || parsed.protocol === 'https:'
+    const isValidProtocol = parsed.protocol === 'http:' || parsed.protocol === 'https:';
+    const hasValidDomain = parsed.hostname.includes('.');
+    return isValidProtocol && hasValidDomain
       ? null
       : 'Please enter a valid website URL.';
   } catch {
@@ -157,6 +159,54 @@ function createSquarePreview(file: File): Promise<string> {
   });
 }
 
+const inputClassName =
+  'w-full rounded-xl border border-slate-700 bg-slate-950/70 px-4 py-2.5 text-sm text-white outline-none transition focus:border-cyan-400';
+
+const SectionCard = ({
+  title,
+  description,
+  icon,
+  dirty,
+  onSave,
+  children,
+}: {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  dirty: boolean;
+  onSave: () => void;
+  children: React.ReactNode;
+}) => (
+  <section className="rounded-2xl border border-slate-800 bg-slate-900/70 p-6 shadow-sm shadow-slate-950/30">
+    <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+      <div className="flex items-center gap-3">
+        <div className="rounded-xl bg-cyan-500/10 p-2 text-cyan-400">{icon}</div>
+        <div>
+          <div className="flex items-center gap-2">
+            <h3 className="text-lg font-semibold text-white">{title}</h3>
+            {dirty && (
+              <span
+                aria-label="unsaved changes"
+                className="inline-flex h-2.5 w-2.5 rounded-full bg-amber-400"
+              />
+            )}
+          </div>
+          <p className="text-sm text-slate-400">{description}</p>
+        </div>
+      </div>
+      <button
+        type="button"
+        onClick={onSave}
+        className="inline-flex items-center gap-2 rounded-lg border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-sm font-semibold text-cyan-300 transition hover:bg-cyan-500/20"
+      >
+        <Save size={16} />
+        Save {title}
+      </button>
+    </div>
+    {children}
+  </section>
+);
+
 const CompanyProfile: React.FC = () => {
   const [profile, setProfile] = useState<CompanyProfileState>(() => readStoredProfile());
   const [savedProfile, setSavedProfile] = useState<CompanyProfileState>(() => readStoredProfile());
@@ -168,11 +218,14 @@ const CompanyProfile: React.FC = () => {
   const [logoName, setLogoName] = useState('');
 
   useEffect(() => {
-    const stored = readStoredProfile();
-    setProfile(stored);
-    setSavedProfile(stored);
-    setLogoPreview(stored.branding.logoDataUrl ?? null);
-    setLogoName(stored.branding.logoName ?? '');
+    const timer = setTimeout(() => {
+      const stored = readStoredProfile();
+      setProfile(stored);
+      setSavedProfile(stored);
+      setLogoPreview(stored.branding.logoDataUrl ?? null);
+      setLogoName(stored.branding.logoName ?? '');
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   const updateProfile = (updater: (current: CompanyProfileState) => CompanyProfileState) => {
@@ -278,53 +331,6 @@ const CompanyProfile: React.FC = () => {
     }
   };
 
-  const inputClassName =
-    'w-full rounded-xl border border-slate-700 bg-slate-950/70 px-4 py-2.5 text-sm text-white outline-none transition focus:border-cyan-400';
-
-  const SectionCard = ({
-    title,
-    description,
-    icon,
-    dirty,
-    onSave,
-    children,
-  }: {
-    title: string;
-    description: string;
-    icon: React.ReactNode;
-    dirty: boolean;
-    onSave: () => void;
-    children: React.ReactNode;
-  }) => (
-    <section className="rounded-2xl border border-slate-800 bg-slate-900/70 p-6 shadow-sm shadow-slate-950/30">
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <div className="rounded-xl bg-cyan-500/10 p-2 text-cyan-400">{icon}</div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-lg font-semibold text-white">{title}</h3>
-              {dirty && (
-                <span
-                  aria-label="unsaved changes"
-                  className="inline-flex h-2.5 w-2.5 rounded-full bg-amber-400"
-                />
-              )}
-            </div>
-            <p className="text-sm text-slate-400">{description}</p>
-          </div>
-        </div>
-        <button
-          type="button"
-          onClick={onSave}
-          className="inline-flex items-center gap-2 rounded-lg border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-sm font-semibold text-cyan-300 transition hover:bg-cyan-500/20"
-        >
-          <Save size={16} />
-          Save {title}
-        </button>
-      </div>
-      {children}
-    </section>
-  );
 
   return (
     <div className="space-y-6">

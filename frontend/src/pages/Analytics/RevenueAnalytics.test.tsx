@@ -25,7 +25,7 @@ describe("RevenueAnalytics", () => {
 
   it("displays date input fields", () => {
     render(<RevenueAnalytics />);
-    const dateInputs = screen.getAllByRole("textbox");
+    const dateInputs = document.querySelectorAll('input[type="date"]');
     expect(dateInputs.length).toBeGreaterThan(0);
   });
 

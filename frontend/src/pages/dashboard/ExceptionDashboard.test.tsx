@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ExceptionDashboard from './ExceptionDashboard';
+import { describe, it, expect } from 'vitest';
 
 describe('ExceptionDashboard', () => {
   it('renders KPI cards, filters, and inline resolution controls', async () => {

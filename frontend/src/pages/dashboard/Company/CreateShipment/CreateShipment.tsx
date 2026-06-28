@@ -80,10 +80,14 @@ const CreateShipment: React.FC = () => {
         const templateId = searchParams.get('template');
         if (!templateId || templatesLoading || templates.length === 0) return;
         if (selectedTemplateId === templateId) return;
-        applyTemplate(templateId);
+        const timer = setTimeout(() => { applyTemplate(templateId); }, 0);
+        return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchParams, templates, templatesLoading]);
     const [pickerTarget, setPickerTarget] = useState<'origin' | 'destination' | null>(null);
+
+    const formatAddress = (addr: Address): string =>
+        `${addr.street}, ${addr.city}, ${addr.state} ${addr.postalCode}, ${addr.country}`;
 
     useEffect(() => {
         addressesApi.getAll().then((addrs) => {
@@ -93,9 +97,6 @@ const CreateShipment: React.FC = () => {
             }
         }).catch(() => {});
     }, []);
-
-    const formatAddress = (addr: Address): string =>
-        `${addr.street}, ${addr.city}, ${addr.state} ${addr.postalCode}, ${addr.country}`;
 
     const handleAddressSelect = (addr: Address) => {
         const formatted = formatAddress(addr);
@@ -108,8 +109,8 @@ useEffect(() => {
     const { origin, destination, weight } = formData;
     const hasRequired = origin.trim() && destination.trim() && Number(weight) > 0;
     if (!hasRequired) {
-        setCostEstimate(null);
-        return;
+        const clearTimer = setTimeout(() => { setCostEstimate(null); }, 0);
+        return () => clearTimeout(clearTimer);
     }
 
     const timer = setTimeout(() => {

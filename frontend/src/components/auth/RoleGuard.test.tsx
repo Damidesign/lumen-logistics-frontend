@@ -25,6 +25,7 @@ function renderWithAuth(token: string | null, path: string) {
             <Route path="/company" element={<div>Company Page</div>} />
           </Route>
           <Route path="/dashboard" element={<div>Dashboard</div>} />
+          <Route path="/dashboard/customer" element={<div>Dashboard</div>} />
           <Route path="/login" element={<div>Login</div>} />
         </Routes>
       </AuthProvider>

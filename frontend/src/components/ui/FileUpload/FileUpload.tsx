@@ -202,7 +202,6 @@ const FileUpload: React.FC<FileUploadProps> = ({
           ref={inputRef}
           id={inputId}
           type="file"
-          accept={accept?.join(',')}
           multiple={multiple}
           onChange={handleInputChange}
           className="sr-only"

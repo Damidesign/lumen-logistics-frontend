@@ -4,6 +4,11 @@ import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import BlockchainLedger from './BlockchainLedger';
 import type { PaginatedLedgerBlocks } from '@services/api/endpoints/ledger';
 
+// ─── Mock CopyToClipboard (requires ToastContext) ─────────────────────────────
+vi.mock('../../components/ui/CopyToClipboard', () => ({
+  default: ({ value }: { value: string }) => <button aria-label={`Copy ${value}`}>Copy</button>,
+}));
+
 // ─── Mock ledgerApi ───────────────────────────────────────────────────────────
 
 vi.mock('@services/api/endpoints/ledger', () => ({

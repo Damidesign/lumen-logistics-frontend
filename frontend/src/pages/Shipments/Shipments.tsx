@@ -17,7 +17,7 @@ import RouteMap from './RouteMap/RouteMap';
 import ShipmentFilters, { type ShipmentFiltersValues, type ShipmentStatus, type Priority } from './ShipmentFilters';
 import './Shipments.css';
 
-type ViewMode = 'list' | 'kanban';
+
 
 function exportShipmentsToCSV(shipments: Shipment[], filename?: string): void {
   const headers = ['Tracking Number', 'Origin', 'Destination', 'Status', 'Created At', 'Expected Delivery', 'Carrier'];
@@ -94,13 +94,6 @@ const Shipments: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<'ALL' | 'CREATED' | 'IN_TRANSIT' | 'DELIVERED' | 'CANCELLED'>('ALL');
   const [timeframeFilter, setTimeframeFilter] = useState<'ALL' | '30' | '90'>('ALL');
-  const [viewMode, setViewMode] = useState<ViewMode>(() => {
-    try {
-      const saved = localStorage.getItem('lumenlogistics_shipments_view');
-      return saved === 'kanban' ? 'kanban' : 'list';
-    } catch {
-      return 'list';
-    }
   const [priorityFilter, setPriorityFilter] = useState<'ALL' | ShipmentPriority>('ALL');
   const [advancedFilters, setAdvancedFilters] = useState<ShipmentFiltersValues>({
     status: [],
@@ -514,8 +507,6 @@ const Shipments: React.FC = () => {
 
       {error ? (
         <div className="shipments-error">{error}</div>
-      ) : viewMode === 'kanban' ? (
-        <ShipmentsKanban shipments={filteredShipments} isLoading={isLoading} />
       ) : isEmpty ? (
         <div className="shipments-empty">
           <h3>No shipments available</h3>

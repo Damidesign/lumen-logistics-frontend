@@ -15,7 +15,9 @@ const navLinks = [
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [companyLogo, setCompanyLogo] = useState<string | null>(null);
+  const [companyLogo, setCompanyLogo] = useState<string | null>(
+    () => window.localStorage.getItem('lumenlogistics-company-logo')
+  );
   const location = useLocation();
 
   const isLandingPage = location.pathname === '/';
@@ -38,9 +40,14 @@ const Navbar: React.FC = () => {
   };
 
   useEffect(() => {
-    const storedLogo = window.localStorage.getItem('lumenlogistics-company-logo');
-    setCompanyLogo(storedLogo ?? null);
-  }, [location.pathname]);
+    const handler = (e: StorageEvent) => {
+      if (e.key === 'lumenlogistics-company-logo') {
+        setCompanyLogo(e.newValue);
+      }
+    };
+    window.addEventListener('storage', handler);
+    return () => window.removeEventListener('storage', handler);
+  }, []);
 
   const handleLogoClick = () => setIsMenuOpen(false);
 

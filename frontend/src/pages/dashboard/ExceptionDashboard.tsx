@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { AlertTriangle, CalendarRange, Clock3, Filter, RefreshCw, Search, TrendingUp, Truck } from 'lucide-react';
+import { CalendarRange, Filter, RefreshCw, Search, TrendingUp } from 'lucide-react';
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 type ExceptionType = 'DELAYED' | 'DAMAGED' | 'LOST' | 'RETURNED' | 'CUSTOMS_HOLD';
@@ -225,6 +225,7 @@ const ExceptionDashboard: React.FC = () => {
             <label className="flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-950/70 px-3 py-2 text-sm text-slate-400">
               <Filter size={16} />
               <select
+                aria-label="Filter by type"
                 value={filters.type}
                 onChange={(e) => setFilters((current) => ({ ...current, type: e.target.value as FilterState['type'] }))}
                 className="bg-transparent text-sm text-white outline-none"

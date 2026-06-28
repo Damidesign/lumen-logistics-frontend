@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import CompanyProfile from './CompanyProfile';
+import { describe, it, expect } from 'vitest';
 
 describe('CompanyProfile', () => {
   it('shows validation errors and unsaved state for contact details', async () => {

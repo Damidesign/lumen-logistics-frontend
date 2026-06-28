@@ -3,12 +3,6 @@ import { Calendar, Download, Loader2 } from "lucide-react";
 import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import html2pdf from "html2pdf.js";
 
-interface KPIData {
-  totalRevenue: number;
-  momChangePercent: number;
-  avgPerShipment: number;
-}
-
 interface MonthlyData {
   month: string;
   actual: number;
@@ -96,11 +90,13 @@ const RevenueAnalytics: React.FC = () => {
   );
 
   useEffect(() => {
-    setLoading(true);
     const timer = setTimeout(() => {
-      setData(generateMockData(new Date(startDate), new Date(endDate)));
-      setLoading(false);
-    }, 300);
+      setLoading(true);
+      setTimeout(() => {
+        setData(generateMockData(new Date(startDate), new Date(endDate)));
+        setLoading(false);
+      }, 300);
+    }, 0);
     return () => clearTimeout(timer);
   }, [startDate, endDate]);
 
@@ -113,7 +109,7 @@ const RevenueAnalytics: React.FC = () => {
       filename: "revenue-analytics.pdf",
       image: { type: "png" as const, quality: 0.98 },
       html2canvas: { scale: 2 },
-      jsPDF: { orientation: "landscape" },
+      jsPDF: { orientation: "landscape" as const },
     };
 
     html2pdf().set(opt).from(element).save();

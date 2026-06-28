@@ -297,7 +297,7 @@ export const shipmentApi = {
         lat: route.destinationLat,
         lng: route.destinationLng,
       }))
-      .filter((shipment): shipment is ShipmentWithGps => Number.isFinite(shipment.lat) && Number.isFinite(shipment.lng));
+      .filter((shipment): shipment is typeof shipment & ShipmentWithGps => Number.isFinite(shipment.lat) && Number.isFinite(shipment.lng));
     return { data: inTransit };
   },
 };
