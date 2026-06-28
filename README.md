@@ -33,34 +33,7 @@ Ensure you have the following installed on your local machine:
 *   [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/)
 *   [Soroban-CLI](https://soroban.stellar.org/docs/getting-started/setup) (for interacting with local/testnet smart contracts)
 
-### Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/Damidesign/lumen-logistics-frontend.git
-   cd lumen-logistics-frontend
    ```
-
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Configure Environment Variables:**
-   Create a `.env` file in the root directory:
-   ```env
-   VITE_STELLAR_NETWORK=TESTNET
-   VITE_SOROBAN_RPC_URL=https://soroban-testnet.stellar.org
-   VITE_CONTRACT_ID=your_contract_id_here
-   ```
-
-4. **Start the development server:**
-   ```bash
-   npm run dev
-   ```
-
-5. **Open your browser:**
-   Navigate to `http://localhost:5173` to view the application.
 
 ## 🏗 Project Architecture
 
