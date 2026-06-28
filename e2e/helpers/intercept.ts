@@ -20,7 +20,16 @@ async function respondJson(
 
 /** Intercepts all /api/shipments requests with fixture data */
 export async function mockShipments(page: Page): Promise<void> {
+  // Must register most-specific routes first (Playwright uses LIFO — last registered fires first)
+  await page.route("**/api/shipments/ship-001", async (route) => {
+    await respondJson(route, shipmentsFixture.single);
+  });
+
   await page.route("**/api/shipments", async (route) => {
+    if (route.request().method() === "POST") {
+      await respondJson(route, shipmentsFixture.created, 201);
+      return;
+    }
     const url = new URL(route.request().url());
     const status = url.searchParams.get("status");
     if (status) {
@@ -33,26 +42,17 @@ export async function mockShipments(page: Page): Promise<void> {
       await respondJson(route, shipmentsFixture.list);
     }
   });
-
-  await page.route("**/api/shipments/ship-001", async (route) => {
-    await respondJson(route, shipmentsFixture.single);
-  });
-
-  await page.route("**/api/shipments", async (route) => {
-    if (route.request().method() === "POST") {
-      await respondJson(route, shipmentsFixture.created, 201);
-    }
-  });
 }
 
 /** Intercepts all /api/settlements requests with fixture data */
 export async function mockSettlements(page: Page): Promise<void> {
-  await page.route("**/api/settlements", async (route) => {
-    await respondJson(route, settlementsFixture.list);
-  });
-
+  // Register specific routes first (Playwright LIFO — last registered fires first)
   await page.route("**/api/settlements/stl-001", async (route) => {
     await respondJson(route, settlementsFixture.single);
+  });
+
+  await page.route("**/api/settlements", async (route) => {
+    await respondJson(route, settlementsFixture.list);
   });
 }
 
@@ -93,8 +93,14 @@ export async function mockAuth(page: Page): Promise<void> {
   });
 }
 
-/** Blocks Sentry requests to avoid noise in tests */
+/** Blocks Sentry and SSE/realtime requests to avoid noise in tests */
 export async function blockTelemetry(page: Page): Promise<void> {
   await page.route("**sentry.io/**", (route) => route.abort());
   await page.route("**ingest.sentry.io/**", (route) => route.abort());
+  // Block the SSE realtime endpoint so RealtimeManager doesn't spam retries
+  await page.route("**/api/events", (route) => route.abort());
+  // Block token refresh endpoint (tests use non-expiring tokens)
+  await page.route("**/api/auth/refresh", (route) =>
+    route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ data: {} }) })
+  );
 }
