@@ -1,5 +1,5 @@
-export { escrowContract } from "./escrow";
-export type { EscrowState } from "./escrow";
+export { escrowContract, shipmentContract } from "./escrow";
+export type { EscrowState, ShipmentContractState } from "./escrow";
 export {
   callContractMethod,
   readContractState,
@@ -7,3 +7,4 @@ export {
   rpc,
   Networks,
 } from "./client";
+export type { ContractMethod } from "./client";
