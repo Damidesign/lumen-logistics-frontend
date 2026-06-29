@@ -1,5 +1,11 @@
-// Primary roles matching the backend UserRole enum
-export type UserRole = 'Admin' | 'Manager' | 'Viewer' | 'Driver' | 'company' | 'customer';
+// Roles matching the backend UserRole enum (Admin/Manager/Viewer/Driver)
+export type UserRole = 'Admin' | 'Manager' | 'Viewer' | 'Driver';
+
+// Legacy role strings used in existing JWT tokens and some older components
+export type LegacyRole = 'company' | 'customer';
+
+// Union for useAuth / AuthContext which may receive either format from JWT
+export type AnyRole = UserRole | LegacyRole;
 
 export type Action =
   | 'shipment:create'
@@ -16,7 +22,7 @@ export type Action =
   | 'api-keys:manage'
   | 'settings:company';
 
-const PERMISSIONS: Record<UserRole, Action[]> = {
+const PERMISSIONS: Record<AnyRole, Action[]> = {
   Admin: [
     'shipment:create',
     'shipment:upload-proof',
@@ -42,9 +48,7 @@ const PERMISSIONS: Record<UserRole, Action[]> = {
     'analytics:view',
   ],
   Viewer: [],
-  Driver: [
-    'shipment:upload-proof',
-  ],
+  Driver: ['shipment:upload-proof'],
   // Legacy aliases
   company: [
     'shipment:create',
@@ -64,12 +68,12 @@ const PERMISSIONS: Record<UserRole, Action[]> = {
   customer: [],
 };
 
-export function can(role: UserRole | null, action: Action): boolean {
+export function can(role: AnyRole | null, action: Action): boolean {
   if (!role) return false;
   return (PERMISSIONS[role] ?? []).includes(action);
 }
 
-export function hasRole(role: UserRole | null, ...roles: UserRole[]): boolean {
+export function hasRole(role: AnyRole | null, ...roles: AnyRole[]): boolean {
   if (!role) return false;
   return roles.includes(role);
 }
