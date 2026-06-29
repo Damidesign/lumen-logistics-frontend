@@ -28,7 +28,7 @@ const DangerZone: React.FC<DangerZoneProps> = ({ userEmail }) => {
       const url = URL.createObjectURL(res.data as Blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'lumenlogistics-export.json';
+      a.download = 'orbithaul-export.json';
       a.click();
       URL.revokeObjectURL(url);
     } finally {
