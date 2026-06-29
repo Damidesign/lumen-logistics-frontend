@@ -88,15 +88,15 @@ const features: Feature[] = [
   },
 ];
 
-function WhyLumenLogistics() {
+function WhyOrbitHaul() {
   return (
-    <section id="why-lumenlogistics" className="py-24">
+    <section id="why-orbithaul" className="py-24">
       <div className="flex flex-col items-center text-center mb-16 gap-4">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[rgba(0,212,200,0.3)] bg-[rgba(0,180,160,0.07)] text-[#00d4c8] text-xs font-medium tracking-widest uppercase">
           Platform Advantages
         </div>
         <h2 className="font-display font-normal text-[1.5rem] md:text-[2.25rem] lg:text-[3.25rem]">
-          Why <span className="text-[#62ffff]">LumenLogistics?</span>
+          Why <span className="text-[#62ffff]">OrbitHaul?</span>
         </h2>
         <p className="text-[rgba(200,230,240,0.6)] max-w-[560px] text-base leading-relaxed">
           We didn't bolt blockchain onto existing logistics software. We built a supply chain platform where decentralization is the core architecture.
@@ -145,4 +145,4 @@ function WhyLumenLogistics() {
   );
 }
 
-export default WhyLumenLogistics;
+export default WhyOrbitHaul;
