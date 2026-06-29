@@ -84,7 +84,7 @@ const PublicTrackingPage: React.FC<PublicTrackingPageProps> = () => {
         <div className="w-8 h-8 rounded-lg bg-cyan-400/10 border border-cyan-400/20 flex items-center justify-center">
           <Package className="w-4 h-4 text-cyan-400" />
         </div>
-        <span className="font-bold text-lg tracking-tight">LumenLogistics</span>
+        <span className="font-bold text-lg tracking-tight">OrbitHaul</span>
       </header>
 
       <main className="flex-1 flex flex-col items-center px-4 py-12">
@@ -106,7 +106,7 @@ const PublicTrackingPage: React.FC<PublicTrackingPageProps> = () => {
               to="/signup"
               className="inline-block px-5 py-2.5 bg-cyan-400 text-black font-semibold rounded-lg hover:bg-cyan-300 transition-colors text-sm"
             >
-              Create a LumenLogistics Account
+              Create a OrbitHaul Account
             </Link>
           </div>
         )}
@@ -199,7 +199,7 @@ const PublicTrackingPage: React.FC<PublicTrackingPageProps> = () => {
 
             {/* CTA */}
             <div className="rounded-2xl border border-cyan-400/10 bg-cyan-400/5 p-6 text-center">
-              <p className="text-sm text-slate-300 mb-1 font-medium">Powered by LumenLogistics Logistics</p>
+              <p className="text-sm text-slate-300 mb-1 font-medium">Powered by OrbitHaul</p>
               <p className="text-xs text-slate-500 mb-4">
                 Blockchain-verified shipment tracking. Create an account to access full analytics, IoT data, and automated settlements.
               </p>
