@@ -79,7 +79,7 @@ const ShipmentDetail: React.FC = () => {
         </main>
 
         <footer className="mt-12 text-center text-text-secondary text-sm">
-          <p>&copy; 2026 LumenLogistics Logistics Platform. All milestones are recorded on the Stellar blockchain.</p>
+          <p>&copy; 2026 OrbitHaul Platform. All milestones are recorded on the Stellar blockchain.</p>
         </footer>
 
         <IoTPanel shipmentId={id ?? 'NVN-2026-X81'} hasIoTDevice={true} />
