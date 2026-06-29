@@ -1,7 +1,7 @@
 import React from "react";
 import Hero from "./sections/Hero/Hero";
 import HowItWorks from "@/LandingPage/sections/HowItWorks/HowItWorks";
-import WhyLumenLogistics from "@/LandingPage/sections/WhyLumenLogistics/WhyLumenLogistics";
+import WhyOrbitHaul from "@/LandingPage/sections/WhyOrbitHaul/WhyOrbitHaul";
 import Features from "@/pages/LandingPage/sections/Features/Features";
 import FAQSection from "./sections/FAQSection/FAQSection";
 import LogoStrip from "./sections/LogoStrip/LogoStrip";
@@ -13,8 +13,8 @@ const LandingPage: React.FC = () => {
         <Hero />
       </section>
       <LogoStrip />
-      <section id="why-lumenlogistics">
-        <WhyLumenLogistics />
+      <section id="why-orbithaul">
+        <WhyOrbitHaul />
       </section>
       <section id="features">
         <Features />
