@@ -5,7 +5,7 @@ import type {
   UpdateShipmentTemplateRequest,
 } from '../../../types/shipmentTemplate';
 
-const STORAGE_KEY = 'lumenlogistics_shipment_templates';
+const STORAGE_KEY = 'orbithaul_shipment_templates';
 
 function readLocalTemplates(): ShipmentTemplate[] {
   try {
