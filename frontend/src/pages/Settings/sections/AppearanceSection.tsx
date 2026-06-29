@@ -47,7 +47,7 @@ const AppearanceSection: React.FC = () => {
           <button
             type="button"
             onClick={() => {
-              localStorage.removeItem('lumenlogistics-theme');
+              localStorage.removeItem('orbithaul-theme');
               window.location.reload();
             }}
             className="flex-1 flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-gray-200 dark:border-[rgba(98,255,255,0.1)] hover:border-teal-300 dark:hover:border-[rgba(98,255,255,0.3)] transition-all cursor-pointer"
