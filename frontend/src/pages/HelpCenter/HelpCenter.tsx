@@ -21,7 +21,7 @@ const HelpCenter: React.FC = () => {
           Onboarding Tour
         </h2>
         <p className="text-sm text-[#94a3b8] mb-4 leading-relaxed">
-          If you would like to revisit the guided introduction to LumenLogistics, you can
+          If you would like to revisit the guided introduction to OrbitHaul, you can
           restart the onboarding tour below. The tour will walk you through the
           key features of the platform step by step.
         </p>
@@ -40,8 +40,8 @@ const HelpCenter: React.FC = () => {
         <h2 className="text-lg font-semibold text-white mb-2">Contact Support</h2>
         <p className="text-sm text-[#94a3b8] leading-relaxed">
           Need further assistance? Reach out to our team at{' '}
-          <a href="mailto:support@lumenlogistics.io" className="text-[#62ffff] underline">
-            support@lumenlogistics.io
+          <a href="mailto:support@orbithaul.io" className="text-[#62ffff] underline">
+            support@orbithaul.io
           </a>
         </p>
       </section>
