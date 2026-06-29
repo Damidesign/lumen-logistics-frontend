@@ -12,8 +12,8 @@ export type FullShipmentStatus =
   | 'DISPUTED'
   | 'CANCELLED';
 
-const DISPLAY_LABELS: Record<FullShipmentStatus, string> = {
-    CREATED: 'Pending Pickup',
+const DISPLAY_LABELS: Record<string, string> = {
+    CREATED: 'Pending Approval',
     IN_TRANSIT: 'In Transit',
     AT_CHECKPOINT: 'At Checkpoint',
     PARTIALLY_DELIVERED: 'Partially Delivered',
@@ -22,24 +22,24 @@ const DISPLAY_LABELS: Record<FullShipmentStatus, string> = {
     CANCELLED: 'Cancelled',
 };
 
-const BADGE_CLASSES: Record<FullShipmentStatus, string> = {
+const BADGE_CLASSES: Record<string, string> = {
     CREATED: 'bg-[rgba(245,158,11,0.1)] text-[#f59e0b] border border-[rgba(245,158,11,0.12)]',
     IN_TRANSIT: 'bg-[rgba(59,130,246,0.1)] text-[#3b82f6] border border-[rgba(59,130,246,0.12)]',
     AT_CHECKPOINT: 'bg-[rgba(139,92,246,0.1)] text-[#8b5cf6] border border-[rgba(139,92,246,0.12)]',
     PARTIALLY_DELIVERED: 'bg-[rgba(14,165,233,0.1)] text-[#0ea5e9] border border-[rgba(14,165,233,0.12)]',
     DELIVERED: 'bg-[rgba(16,185,129,0.1)] text-[#10b981] border border-[rgba(16,185,129,0.12)]',
-    DISPUTED: 'bg-[rgba(239,68,68,0.1)] text-[#ef4444] border border-[rgba(239,68,68,0.12)]',
-    CANCELLED: 'bg-[rgba(107,114,128,0.1)] text-[#6b7280] border border-[rgba(107,114,128,0.12)]',
+    DISPUTED: 'bg-[rgba(245,158,11,0.1)] text-[#f59e0b] border border-[rgba(245,158,11,0.12)]',
+    CANCELLED: 'bg-[rgba(239,68,68,0.1)] text-[#ef4444] border border-[rgba(239,68,68,0.12)]',
 };
 
-const DOT_CLASSES: Record<FullShipmentStatus, string> = {
+const DOT_CLASSES: Record<string, string> = {
     CREATED: 'bg-[#f59e0b]',
     IN_TRANSIT: 'bg-[#3b82f6]',
     AT_CHECKPOINT: 'bg-[#8b5cf6]',
     PARTIALLY_DELIVERED: 'bg-[#0ea5e9]',
     DELIVERED: 'bg-[#10b981]',
-    DISPUTED: 'bg-[#ef4444]',
-    CANCELLED: 'bg-[#6b7280]',
+    DISPUTED: 'bg-[#f59e0b]',
+    CANCELLED: 'bg-[#ef4444]',
 };
 
 // Terminal statuses — no further transitions allowed from frontend
@@ -50,15 +50,15 @@ export const DISPUTED_STATUSES: FullShipmentStatus[] = ['DISPUTED'];
 
 export function getStatusDisplayLabel(status: ShipmentStatus | string): string {
     if (!status) return 'Unknown';
-    return (DISPLAY_LABELS as Record<string, string>)[status] ?? String(status);
+    return DISPLAY_LABELS[status] ?? String(status);
 }
 
 export function getStatusBadgeClass(status: ShipmentStatus | string): string {
-    return (BADGE_CLASSES as Record<string, string>)[status] ?? 'bg-text-secondary/10 text-text-secondary border border-text-secondary/10';
+    return BADGE_CLASSES[status] ?? 'bg-text-secondary/10 text-text-secondary border border-text-secondary/10';
 }
 
 export function getStatusDotClass(status: ShipmentStatus | string): string {
-    return (DOT_CLASSES as Record<string, string>)[status] ?? 'bg-text-secondary';
+    return DOT_CLASSES[status] ?? 'bg-text-secondary';
 }
 
 export function isTerminalStatus(status: string): boolean {
