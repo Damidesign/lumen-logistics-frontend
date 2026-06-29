@@ -62,7 +62,7 @@ const TwoFactorSetup: React.FC = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'lumenlogistics-2fa-backup-codes.txt';
+    a.download = 'orbithaul-2fa-backup-codes.txt';
     a.click();
     URL.revokeObjectURL(url);
   };
